@@ -22,7 +22,7 @@ char	*readed(char **h)
 	
 	i = -1;
 	str = ft_calloc(ft_strlen(*h) + 2, sizeof(char));
-	while (h[0][i] && h[0][++i] != '\n')//ta quebrando aqui
+	while (h[0] && h[0][++i] != '\n')//ta quebrando aqui
 		str[i] = h[0][i];
 	if (h[0][i] == '\n')
 		str[i++] = '\n';
@@ -66,24 +66,40 @@ char	*get_next_line(int fd)
 
 #include <stdio.h>
 #include <fcntl.h>
+//#include <stdlib.h>
 
 int	main(int argc, char **argv)
 {
 	int	fd1;
 	int	fd2;
 	(void)argc;
+	(void)argv;
 	char	*linha1;
 	char	*linha2;
-	fd1 = open(argv[1], O_RDONLY);
-	fd2 = open(argv[2], O_RDONLY);
-	linha1 = ft_calloc(1, 1);;
-	linha2 = ft_calloc(1, 1);;
-	while (linha1 || linha2)
-	{
-		free(linha1);
-		free(linha2);
-		linha1 = get_next_line(fd1);
-		linha2 = get_next_line(fd2);
-		printf("arquivo 1: %s \nlinha2: %s\n", linha1, linha2);
-	}
+	fd1 = open("/home/r3aper/42cursus/gnl/arquivo.txt", O_RDONLY);
+	fd2 = open("/home/r3aper/42cursus/gnl/arquivo2.txt", O_RDONLY);
+
+	linha1 = get_next_line(fd1);
+	printf("L1 -> %s\n", linha1);
+	free(linha1);
+	linha2 = get_next_line(fd2);
+	printf("L2 -> %s\n", linha2);
+	free(linha2);
+	
+	linha1 = get_next_line(fd1);
+	printf("L1 -> %s\n", linha1);
+	free(linha1);
+	linha2 = get_next_line(fd2);
+	printf("L2 -> %s\n", linha2);
+	free(linha2);
+	
+	linha1 = get_next_line(fd1);
+	printf("L1 -> %s\n", linha1);
+	free(linha1);
+	linha2 = get_next_line(fd2);
+	printf("L2 -> %s\n", linha2);
+	free(linha2);
+	
+	close(fd1);
+	close(fd2);
 }

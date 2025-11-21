@@ -88,10 +88,8 @@ void	*ft_memset(void *s, int c, size_t n)
 void    *ft_calloc(size_t nmemb, size_t size)
 {
         void    *tab;
-		int		i;
 
-        i = 0;
-		if (size != 0 && nmemb > SIZE_MAX / size)
+	if (size != 0 && nmemb > SIZE_MAX / size)
                 return (NULL);
         tab = malloc(size * nmemb);
         if (!tab)
