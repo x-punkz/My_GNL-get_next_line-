@@ -20,17 +20,20 @@ char	*readed(char **h)
 	int		i;
 	char	*tmp;
 	
-	i = -1;
+	i = 0;
 	str = ft_calloc(ft_strlen(*h) + 2, sizeof(char));
-	while (h[0] && h[0][++i] != '\n')//ta quebrando aqui
+	while (h[0][i] != '\0' && h[0][i] != '\n')
+	{
 		str[i] = h[0][i];
+		i++;
+	}
 	if (h[0][i] == '\n')
 		str[i++] = '\n';
-	if (h[0][i] == '\0')
+	if (str[0] == '\0')
 	{
 		free(*h);
 		*h = NULL;
-		return(str);
+		return(NULL);
 	}
 	tmp = ft_strdup(*h + i);
 	free(*h);
@@ -45,10 +48,11 @@ char	*read_line(char **holder, int fd)
 
 	while ((counter = read(fd, buffer, BUFFER_SIZE)))
 	{
-		buffer[counter] = '\0';
+		if (buffer[counter] != '\n')
+			buffer[counter] = '\0';
 		*holder = ft_strjoin(holder, buffer);
 		if (strchr(*holder, '\n'))
-			break ;
+		break ;
 	}
 	return (readed(holder));
 }
@@ -66,7 +70,6 @@ char	*get_next_line(int fd)
 
 #include <stdio.h>
 #include <fcntl.h>
-//#include <stdlib.h>
 
 int	main(int argc, char **argv)
 {
