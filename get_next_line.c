@@ -32,6 +32,7 @@ char	*readed(char **h)
 	if (str[0] == '\0')
 	{
 		free(*h);
+		free(str);
 		*h = NULL;
 		return(NULL);
 	}
