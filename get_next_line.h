@@ -6,7 +6,7 @@
 /*   By: daniviei <daniviei@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 19:11:35 by daniviei          #+#    #+#             */
-/*   Updated: 2025/11/18 19:57:32 by daniviei         ###   ########.fr       */
+/*   Updated: 2025/11/25 13:15:33 by daniviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include <string.h>
 # include <stdint.h>
+# include <fcntl.h>
 
 char	*get_next_line(int fd);
 char    *ft_strjoin(char **s1, char *s2);
 size_t  ft_strlen(char *str);
 char    *ft_strdup(char *s);
-char	*readed(char **r);
 void	*ft_memset(void *s, int c, size_t n);
 void    *ft_calloc(size_t nmemb, size_t size);
 

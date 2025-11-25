@@ -6,15 +6,13 @@
 /*   By: daniviei <daniviei@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 15:32:37 by daniviei          #+#    #+#             */
-/*   Updated: 2025/11/19 15:44:46 by daniviei         ###   ########.fr       */
+/*   Updated: 2025/11/25 13:32:01 by daniviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
-#include <string.h>
-#include <fcntl.h>
 #define MAX_FD 1024
 
-char	*readed(char **h)
+static char	*readed(char **h)
 {
 	char	*str;
 	int		i;
@@ -42,7 +40,7 @@ char	*readed(char **h)
 	return(str);
 }
 
-char	*read_line(char **holder, int fd)
+static char	*read_line(char **holder, int fd)
 {
 	char	*buffer;
 	int		counter;
@@ -80,7 +78,7 @@ char	*get_next_line(int fd)
 
 int	main(int argc, char **argv)
 {
-	/* Preciso sanar dois leaks p
+	/* Preciso sanar um leak p
 	dar os frees necessarios.. */
 	int	fd1;
 	int	fd2;
@@ -88,8 +86,8 @@ int	main(int argc, char **argv)
 	(void)argv;
 	char	*linha1;
 	char	*linha2;
-	fd1 = open("/home/r3aper/42cursus/gnl/arquivo.txt", O_RDONLY);
-	fd2 = open("/home/r3aper/42cursus/gnl/arquivo2.txt", O_RDONLY);
+	fd1 = open("/home/daniviei/Desktop/gnl/arquivo.txt", O_RDONLY);
+	fd2 = open("/home/daniviei/Desktop/gnl/arquivo2.txt", O_RDONLY);
 
 	linha1 = get_next_line(fd1);
 	printf("L1 -> %s\n", linha1);
@@ -105,13 +103,20 @@ int	main(int argc, char **argv)
 	printf("L2 -> %s\n", linha2);
 	free(linha2);
 	
-	linha1 = get_next_line(fd1);
+/*	linha1 = get_next_line(fd1);
 	printf("L1 -> %s\n", linha1);
 	free(linha1);
 	linha2 = get_next_line(fd2);
 	printf("L2 -> %s\n", linha2);
 	free(linha2);
 	
+	linha1 = get_next_line(fd1);
+	printf("L1 -> %s\n", linha1);
+	free(linha1);
+	linha2 = get_next_line(fd2);
+	printf("L2 -> %s\n", linha2);
+	free(linha2);
+*/	
 	close(fd1);
 	close(fd2);
 }

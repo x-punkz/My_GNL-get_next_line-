@@ -6,11 +6,10 @@
 /*   By: daniviei <daniviei@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 19:27:34 by daniviei          #+#    #+#             */
-/*   Updated: 2025/11/18 19:57:16 by daniviei         ###   ########.fr       */
+/*   Updated: 2025/11/25 13:17:27 by daniviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
-#include <stdio.h>
 
 char	*ft_strjoin(char **s1, char *s2)
 {
