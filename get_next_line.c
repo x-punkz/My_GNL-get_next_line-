@@ -43,9 +43,10 @@ char	*readed(char **h)
 
 char	*read_line(char **holder, int fd)
 {
-	char	buffer[BUFFER_SIZE + 1];
+	char	*buffer;
 	int		counter;
 
+	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof (char));
 	while ((counter = read(fd, buffer, BUFFER_SIZE)))
 	{
 		if (buffer[counter] != '\n')
@@ -54,6 +55,7 @@ char	*read_line(char **holder, int fd)
 		if (strchr(*holder, '\n'))
 		break ;
 	}
+	free (buffer);
 	return (readed(holder));
 }
 
@@ -73,6 +75,8 @@ char	*get_next_line(int fd)
 
 int	main(int argc, char **argv)
 {
+	/* Preciso sanar dois leaks p
+	dar os frees necessarios.. */
 	int	fd1;
 	int	fd2;
 	(void)argc;
