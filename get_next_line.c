@@ -48,8 +48,12 @@ char	*read_line(char **holder, int fd)
 	int		counter;
 
 	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof (char));
+	if (!buffer)
+		return(NULL);
 	while ((counter = read(fd, buffer, BUFFER_SIZE)))
 	{
+		if (counter == -1)
+			break;
 		if (buffer[counter] != '\n')
 			buffer[counter] = '\0';
 		*holder = ft_strjoin(holder, buffer);
