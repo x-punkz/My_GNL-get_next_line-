@@ -1,15 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daniviei <daniviei@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 15:32:37 by daniviei          #+#    #+#             */
-/*   Updated: 2025/11/25 21:12:50 by daniviei         ###   ########.fr       */
+/*   Updated: 2025/11/25 21:13:58 by daniviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 #define MAX_FD 1024
 
 static char	*readed(char **h)
