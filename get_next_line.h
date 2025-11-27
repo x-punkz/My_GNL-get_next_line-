@@ -6,7 +6,7 @@
 /*   By: daniviei <daniviei@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 19:11:35 by daniviei          #+#    #+#             */
-/*   Updated: 2025/11/25 13:15:33 by daniviei         ###   ########.fr       */
+/*   Updated: 2025/11/26 12:13:32 by daniviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@
 # include <stdint.h>
 # include <fcntl.h>
 
+typedef struct	s_list;
+{
+	char			*content;
+	struct s_list	*next;
+}					t_list;
+
 char	*get_next_line(int fd);
-char    *ft_strjoin(char **s1, char *s2);
-size_t  ft_strlen(char *str);
-char    *ft_strdup(char *s);
-void	*ft_memset(void *s, int c, size_t n);
-void    *ft_calloc(size_t nmemb, size_t size);
 
 #endif

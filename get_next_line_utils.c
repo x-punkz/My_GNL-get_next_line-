@@ -6,58 +6,21 @@
 /*   By: daniviei <daniviei@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 19:27:34 by daniviei          #+#    #+#             */
-/*   Updated: 2025/11/25 21:13:23 by daniviei         ###   ########.fr       */
+/*   Updated: 2025/11/26 12:27:45 by daniviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
 
-char	*ft_strjoin(char **s1, char *s2)
+t_list	*ft_lstnew(void *content)
 {
-	int		i;
-	int		ni;
-	size_t	size;
-	char	*nstr;
+	t_list	*node;
 
-	i = 0;
-	ni = 0;
-	size = (ft_strlen(s1[0]) + ft_strlen(s2)) * sizeof(char);
-	nstr = (char *)malloc(size + 1);
-	if (!nstr)
+	node = (t_list *) malloc(sizeof (t_list));
+	if (!node)
 		return (NULL);
-	while (s1[0][i] != '\0')
-	{
-		nstr[ni] = s1[0][i];
-		ni++;
-		i++;
-	}
-	i = 0;
-	while (s2[i] != '\0')
-	{
-		nstr[ni++] = s2[i++];
-	}
-	nstr[ni] = '\0';
-	free(s1[0]);
-	return (nstr);
-}
-
-char	*ft_strdup(char *s)
-{
-	char	*dest;
-	int		size;
-	int		i;
-
-	i = 0;
-	size = ft_strlen(s);
-	dest = (char *) malloc(sizeof (char) * (size + 1));
-	if (!dest)
-		return (NULL);
-	while (s[i] != '\0')
-	{
-		dest[i] = s[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
+	node->content = content;
+	node->next = NULL;
+	return (node);
 }
 
 size_t	ft_strlen(char *str)

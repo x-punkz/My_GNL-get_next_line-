@@ -6,114 +6,235 @@
 /*   By: daniviei <daniviei@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 15:32:37 by daniviei          #+#    #+#             */
-/*   Updated: 2025/11/25 21:12:50 by daniviei         ###   ########.fr       */
+/*   Updated: 2025/11/26 22:57:58 by daniviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
 #define MAX_FD 1024
 
-static char	*readed(char **h)
+void	found_line(t_list **holder)
 {
-	char	*str;
-	int		i;
-	char	*tmp;
-	
-	i = 0;
-	str = ft_calloc(ft_strlen(*h) + 2, sizeof(char));
-	while (h[0][i] != '\0' && h[0][i] != '\n')
-	{
-		str[i] = h[0][i];
-		i++;
-	}
-	if (h[0][i] == '\n')
-		str[i++] = '\n';
-	if (str[0] == '\0')
-	{
-		free(*h);
-		free(str);
-		*h = NULL;
-		return(NULL);
-	}
-	tmp = ft_strdup(*h + i);
-	free(*h);
-	*h = tmp;
-	return(str);
+	if (holder->str[i] == '\n')
+		return (NULL);
 }
 
-static char	*read_line(char **holder, int fd)
+static   void    join(t_list **holder, char *buffer)
 {
-	char	*buffer;
-	int		counter;
+	t_list  *new_node;
+	t_list  *last_node;
 
-	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof (char));
-	if (!buffer)
-		return(NULL);
-	while ((counter = read(fd, buffer, BUFFER_SIZE)))
+	last_node = find_last_node(*holder);
+	new_node = malloc(sizeof(t_list));
+	if (new_node == NULL)
+		return ;
+	if (last_node == NULL)
+		*holder = last_node;
+	else
+		last_node->next = new_node;
+	new_node->content = buffer
+	new_node->next = NULL;
+}
+
+static void	create_list(t_list **holder, int fd)
+{
+	int     char_counted;
+	char    *buffer;
+
+	while (!found_line(*holder))
 	{
-		if (counter == -1)
-			break;
-		buffer[counter] = '\0';
-		*holder = ft_strjoin(holder, buffer);
-		if (strchr(*holder, '\n'))
-			break ;
+		buffer = ft_calloc(BUFFER_SIZE + 1, sizeof (char));
+		if (!buffer)
+			return (NULL);
+		char_counted = read(fd, buffer, BUFFER_SIZE);
+		if (!char_counted)
+		{
+			free(buffer);
+			return;
+		}
 	}
-	free (buffer);
-	return (readed(holder));
+	buffer[char_counted] = '\0';
+	join(holder, buffer);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*holder[MAX_FD];
+	static t_list	*holder;
+	char		*next_line;
 
-	if (fd <= 0 || fd > 1024 || BUFFER_SIZE <= 0)
+	holder = NULL;
+	if (fd <= 0 || BUFFER_SIZE <= 0 || read(fd, &next_line, 0) < 0)
 		return (NULL);
-	if (!holder[fd])
-		holder[fd] = ft_calloc(1, 1);
-	return (read_line(&holder[fd], fd));
+
+	create_list(&holder, fd);
+	//
+	void create_list(t_list **holder, int fd)
+	{
+		int	char_counted;
+		char	*buffer;
+
+		while (!found_line(*holder))
+		{
+			buffer = ft_calloc(BUFFER_SIZE + 1, sizeof (char));
+			if (!buffer)
+				return (NULL);
+			char_counted = read(fd, buffer, BUFFER_SIZE);
+			if (!char_counted)
+			{
+				free(buffer);
+				return;
+			}
+		}
+		buffer[char_counted] = '\0';
+		join(holder, buffer);
+		//
+		void	join(t_list **holder, char *buffer)
+		{
+			t_list	*new_node;
+			t_list	*last_node;
+
+			last_node = find_last_node(*holder);
+			new_node = malloc(sizeof(t_list));
+			if (new_node == NULL)
+				return ;
+			if (last_node == NULL)
+				*holder = last_node;
+			else
+				last_node->next = new_node;
+			new_node->content = buffer
+			new_node->next = NULL;
+		}
+		//
+	}
+	//
+	if (!holder)
+		return (NULL);
+	next_line = get_line(holder);
+	//
+	char	get_line(t_list *holder)
+	{
+		int	str_len;
+		char	*next_str;
+
+		if (holder == NULL)
+			return (NULL);
+		str_len = len_to_next(holder);
+		//por em ultils
+		int	len_to_next(t_list *holder)
+		{
+			int	i;
+			int	len;
+
+			if (holder == NULL)
+				return (NULL);
+			len = 0;
+			while (holder)
+			{
+				i = 0;
+				while (holder->content[i])
+				{
+					if (holder->content[i] == '\n')
+						++len;
+					return (len);
+					++i;
+					++len;
+				}
+				holder = holder->next;
+			}
+			return (len);
+		}
+		//
+		next_str = ft_calloc(str_len + 1,sizeof (char));
+		if (!next_str)
+			return (NULL);
+		copy_str(holder, next_str);
+		// tbm na utils
+		char	copy_str(t_list *holder, char *str)
+		{
+			int	i;
+			int	k;
+
+			if (!holder)
+				return ;
+			k = 0;
+			while (holder)
+			{
+				i = 0;
+				while (holder->content[i])
+				{
+					if (holder->content[i] == '\n')//to aqui
+					{
+						str[k++] = '\n';
+						str[k] = '\0';
+						return ;
+					}
+					str[k++] = holder->content[i++];
+				}
+				holder = holder->next;
+			}
+			str[k] = '\0';
+		}
+		//
+	}
+	//
+
+	polish_list(&holder);//polir a lista
+	//
+	void	polish_list(t_list **holder)
+	{
+		t_list	*last_node;
+		t_list	*clean_node;
+		int	i;
+		int	k;
+		char	*buff;
+
+		buff = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+		clean_node = malloc(sizeof(t_list));
+		if (buff == NULL || clean_node == NULL)
+			return ;
+		last_node = find_last_node(*list);
+		//
+		find_last_node()
+		//
+
+		i = 0;
+		k = 0;
+		while (last_node->content[i] != '\0'
+				&& last_node->content[i] != '\n')
+			++i;
+		while (last_node->content[i] != '\0'
+				&& last_node->content[++i])
+			buff[k++] = last_node->content[i];
+		buff[k] = '\0';
+		clean_node->content = buff;
+		clean_node->next = NULL;
+		dealloc(list, clean_node, buff);
+		//
+		dealloc()
+		//
+	}
+	//
+	return (next_line);
 }
-/*
+
 #include <stdio.h>
 #include <fcntl.h>
 
-int	main(int argc, char **argv)
-{
+int	main(void)
+new{
 	int	fd1;
-	int	fd2;
-	(void)argc;
-	(void)argv;
 	char	*linha1;
-	char	*linha2;
+	
 	fd1 = open("/home/daniviei/Desktop/gnl/arquivo.txt", O_RDONLY);
-	fd2 = open("/home/daniviei/Desktop/gnl/arquivo2.txt", O_RDONLY);
 
 	linha1 = get_next_line(fd1);
 	printf("L1 -> %s\n", linha1);
 	free(linha1);
-	linha2 = get_next_line(fd2);
-	printf("L2 -> %s\n", linha2);
-	free(linha2);
-	
 	linha1 = get_next_line(fd1);
-	printf("L1 -> %s\n", linha1);
-	free(linha1);
-	linha2 = get_next_line(fd2);
-	printf("L2 -> %s\n", linha2);
+	printf("L2 -> %s\n", linha1);
 	free(linha2);
-	
 	linha1 = get_next_line(fd1);
-	printf("L1 -> %s\n", linha1);
+	printf("L3 -> %s\n", linha1);
 	free(linha1);
-	linha2 = get_next_line(fd2);
-	printf("L2 -> %s\n", linha2);
-	free(linha2);
-	
 	linha1 = get_next_line(fd1);
-	printf("L1 -> %s\n", linha1);
-	free(linha1);
-	linha2 = get_next_line(fd2);
-	printf("L2 -> %s\n", linha2);
-	free(linha2);
-	
-	close(fd1);
-	close(fd2);
-}*/
+	printf("L4 -> %s\n", linha1);
+}
