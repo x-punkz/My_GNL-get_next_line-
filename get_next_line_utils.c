@@ -11,51 +11,119 @@
 /* ************************************************************************** */
 #include "get_next_line.h"
 
-t_list	*ft_lstnew(void *content)
+void	free_all(t_list **list, t_list *clean_node, char *buffer)
 {
-	t_list	*node;
+	t_list	*tmp;
 
-	node = (t_list *) malloc(sizeof (t_list));
-	if (!node)
-		return (NULL);
-	node->content = content;
-	node->next = NULL;
-	return (node);
-}
-
-size_t	ft_strlen(char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-void	*ft_memset(void *s, int c, size_t n)
-{
-	size_t			i;
-	unsigned char	*ptr;
-
-	i = 0;
-	ptr = (unsigned char *)s;
-	while (i < n)
+	while (*list)
 	{
-		ptr[i] = c;
-		i++;
-	}	
-	return (ptr);
+		tmp = (*list)->next;
+		free((*list)->content);
+		free((*list));
+		*list = tmp;
+	}
+	*list = NULL;
+	if (clean_node->content[0])
+		*list = clean_node;
+	else
+	{
+		free(buffer);
+		free(clean_node);
+	}
+}
+
+void	copy_list(t_list *list, char *str)
+{
+	int	i;
+	int	j;
+
+	j = 0;
+	while (list)
+	{
+		i = 0;
+		while (list->content[i])
+		{
+			if (list->content[i] == '\n')
+			{
+				str[j++] = '\n';
+				str[j] = '\0';
+				return ;
+			}
+			str[j++] = list->content[i++];
+		}
+		list = list->next;
+	}
+	str[j] = '\0';
+}
+
+int	len_to_newline(t_list *list)
+{
+	int	i;
+	int	len;
+
+	len = 0;
+	while (list)
+	{
+		i = 0;
+		while (list->content[i])
+		{
+			if (list->content[i] == '\n')
+			{
+				++len;
+				return (len);
+			}
+			++i;
+			++len;
+		}
+		list = list->next;
+	}
+	return (len);
+}
+
+t_list	*ft_lstlast(t_list *lst)
+{
+	if (!lst)
+		return (NULL);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
+}
+
+int	found_newline(t_list *holder)
+{
+	int	i;
+	
+	if (holder == NULL)
+		return (0);
+	while (holder)
+	{
+		i = 0;
+		while (holder->content[i] && i < BUFFER_SIZE)
+		{
+			if (holder->content[i] == '\n')
+				return (1);
+			++i;
+		}
+		holder = holder->next;
+	}
+	return (0);
 }
 
 void    *ft_calloc(size_t nmemb, size_t size)
 {
-        void    *tab;
+    void    *tab;
+	size_t		i;
 
+	i = 0;
 	if (size != 0 && nmemb > SIZE_MAX / size)
                 return (NULL);
         tab = malloc(size * nmemb);
         if (!tab)
                 return (NULL);
-        ft_memset(tab, 0, (size * nmemb));
+        while (i < (size * nmemb))
+		{
+			((unsigned char *)tab)[i] = 0;
+			i++;
+		}
         return (tab);
 }

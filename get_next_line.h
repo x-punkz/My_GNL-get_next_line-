@@ -23,12 +23,18 @@
 # include <stdint.h>
 # include <fcntl.h>
 
-typedef struct	s_list;
+typedef struct	s_list
 {
 	char			*content;
 	struct s_list	*next;
 }					t_list;
 
 char	*get_next_line(int fd);
+void    *ft_calloc(size_t nmemb, size_t size);
+int		found_newline(t_list *holder);
+t_list	*ft_lstlast(t_list *lst);
+int		len_to_newline(t_list *list);
+void	copy_list(t_list *list, char *str);
+void	free_all(t_list **list, t_list *clean_node, char *buffer);
 
 #endif
