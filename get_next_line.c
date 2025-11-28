@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daniviei <daniviei@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 19:27:34 by daniviei          #+#    #+#             */
-/*   Updated: 2025/11/26 12:27:45 by daniviei         ###   ########.fr       */
+/*   Updated: 2025/11/28 11:19:09 by daniviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
 
-static void	polish_list(t_list	**holder)
+static void	polish_list(t_list **holder)
 {
 	int		i;
 	int		j;
@@ -19,7 +19,7 @@ static void	polish_list(t_list	**holder)
 	t_list	*clean_node;
 	char	*buff;
 
-	buff = malloc(BUFFER_SIZE + 1);
+	buff = malloc((unsigned int)BUFFER_SIZE + 1);
 	clean_node = malloc(sizeof(t_list));
 	if (buff == NULL || clean_node == NULL)
 		return ;
@@ -85,14 +85,14 @@ static void	create_list(t_list **holder, int fd)
 		buff[char_read] = '\0';
 		join(holder, buff);
 	}
-
 }
+
 char	*get_next_line(int fd)
 {
 	static t_list	*holder = NULL;
-	char	*str;
+	char			*str;
 
-	if(fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	create_list(&holder, fd);
 	if (holder == NULL)
@@ -101,8 +101,9 @@ char	*get_next_line(int fd)
 	polish_list(&holder);
 	return (str);
 }
-
+/*
 #include <stdio.h>
+
 int	main(void)
 {
 	int	fd;
@@ -112,13 +113,11 @@ int	main(void)
 	lines  = 1;
 	fd = open("arquivo.txt", O_RDONLY);
 
-	while ((line = get_next_line(fd))
-
-)
+	while ((line = get_next_line(fd)) != NULL)
 	{
 		printf("linha %d -> %s\n", lines, line);
 		lines++;
 		free(line);
 	}
 	return (0);
-}
+}*/

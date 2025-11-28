@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daniviei <daniviei@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/14 19:11:35 by daniviei          #+#    #+#             */
-/*   Updated: 2025/11/25 13:15:33 by daniviei         ###   ########.fr       */
+/*   Created: 2025/11/28 11:30:20 by daniviei          #+#    #+#             */
+/*   Updated: 2025/11/28 13:53:21 by daniviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 1
-#endif
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1
+# endif
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <string.h>
-# include <stdint.h>
 # include <fcntl.h>
+# include <stdint.h>
+# include <stdlib.h>
+# include <string.h>
+# include <unistd.h>
 
 char	*get_next_line(int fd);
-char    *ft_strjoin(char **s1, char *s2);
-size_t  ft_strlen(char *str);
-char    *ft_strdup(char *s);
-void	*ft_memset(void *s, int c, size_t n);
-void    *ft_calloc(size_t nmemb, size_t size);
+char	*ft_strjoin(char **s1, char *s2);
+size_t	ft_strlen(char *str);
+char	*ft_strdup(char *s);
+char	*ft_calloc(size_t nmemb, size_t size);
 
 #endif

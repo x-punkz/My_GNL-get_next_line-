@@ -6,7 +6,7 @@
 /*   By: daniviei <daniviei@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 19:27:34 by daniviei          #+#    #+#             */
-/*   Updated: 2025/11/25 19:25:55 by daniviei         ###   ########.fr       */
+/*   Updated: 2025/11/28 13:57:16 by daniviei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line_bonus.h"
@@ -48,7 +48,7 @@ char	*ft_strdup(char *s)
 
 	i = 0;
 	size = ft_strlen(s);
-	dest = (char *) malloc(sizeof (char) * (size + 1));
+	dest = (char *)malloc(sizeof(char) * (size + 1));
 	if (!dest)
 		return (NULL);
 	while (s[i] != '\0')
@@ -69,30 +69,22 @@ size_t	ft_strlen(char *str)
 		i++;
 	return (i);
 }
-void	*ft_memset(void *s, int c, size_t n)
+
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	size_t			i;
-	unsigned char	*ptr;
+	void	*tab;
+	size_t	i;
 
 	i = 0;
-	ptr = (unsigned char *)s;
-	while (i < n)
-	{
-		ptr[i] = c;
-		i++;
-	}	
-	return (ptr);
-}
-
-void    *ft_calloc(size_t nmemb, size_t size)
-{
-        void    *tab;
-
 	if (size != 0 && nmemb > SIZE_MAX / size)
-                return (NULL);
-        tab = malloc(size * nmemb);
-        if (!tab)
-                return (NULL);
-        ft_memset(tab, 0, (size * nmemb));
-        return (tab);
+		return (NULL);
+	tab = malloc(size * nmemb);
+	if (!tab)
+		return (NULL);
+	while (i < (size * nmemb))
+	{
+		tab[i] = 0;
+		i++;
+	}
+	return (tab);
 }

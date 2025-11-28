@@ -13,17 +13,17 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 1
-#endif
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1
+# endif
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <string.h>
-# include <stdint.h>
 # include <fcntl.h>
+# include <stdint.h>
+# include <stdlib.h>
+# include <string.h>
+# include <unistd.h>
 
-typedef struct	s_list
+typedef struct s_list
 {
 	char			*content;
 	struct s_list	*next;

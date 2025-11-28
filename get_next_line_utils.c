@@ -92,7 +92,7 @@ t_list	*ft_lstlast(t_list *lst)
 int	found_newline(t_list *holder)
 {
 	int	i;
-	
+
 	if (holder == NULL)
 		return (0);
 	while (holder)
@@ -108,4 +108,3 @@ int	found_newline(t_list *holder)
 	}
 	return (0);
 }
-
