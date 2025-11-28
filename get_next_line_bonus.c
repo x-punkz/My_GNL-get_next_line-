@@ -83,8 +83,8 @@ int	main(int argc, char **argv)
 	(void)argv;
 	char	*linha1;
 	char	*linha2;
-	fd1 = open("/home/daniviei/Desktop/gnl/arquivo.txt", O_RDONLY);
-	fd2 = open("/home/daniviei/Desktop/gnl/arquivo2.txt", O_RDONLY);
+	fd1 = open("arquivo.txt", O_RDONLY);
+	fd2 = open("arquivo2.txt", O_RDONLY);
 
 	linha1 = get_next_line(fd1);
 	printf("L1 -> %s\n", linha1);
