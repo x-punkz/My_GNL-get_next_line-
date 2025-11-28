@@ -19,7 +19,7 @@ static void	polish_list(t_list	**holder)
 	t_list	*clean_node;
 	char	*buff;
 
-	buff = ft_calloc(BUFFER_SIZE + 1, sizeof (char));
+	buff = malloc(BUFFER_SIZE + 1);
 	clean_node = malloc(sizeof(t_list));
 	if (buff == NULL || clean_node == NULL)
 		return ;
@@ -30,6 +30,7 @@ static void	polish_list(t_list	**holder)
 		i++;
 	while (last_node->content[i] && last_node->content[++i])
 		buff[j++] = last_node->content[i];
+	buff[j] = '\0';
 	clean_node->content = buff;
 	clean_node->next = NULL;
 	free_all(holder, clean_node, buff);
@@ -41,12 +42,11 @@ static char	*get_line(t_list *holder)
 	char	*next_str;
 
 	len = len_to_newline(holder);
-	next_str = ft_calloc(len, sizeof(char));
+	next_str = malloc(len + 1);
 	if (next_str == NULL)
 		return (NULL);
 	copy_list(holder, next_str);
 	return (next_str);
-
 }
 
 static void	join(t_list **holder, char *buf)
@@ -73,7 +73,7 @@ static void	create_list(t_list **holder, int fd)
 
 	while (!found_newline(*holder))
 	{
-		buff = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+		buff = malloc(BUFFER_SIZE + 1);
 		if (buff == NULL)
 			return ;
 		char_read = read(fd, buff, BUFFER_SIZE);
@@ -118,6 +118,7 @@ int	main(void)
 	{
 		printf("linha %d -> %s\n", lines, line);
 		lines++;
+		free(line);
 	}
 	return (0);
 }

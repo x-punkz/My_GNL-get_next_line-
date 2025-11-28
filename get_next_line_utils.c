@@ -109,21 +109,3 @@ int	found_newline(t_list *holder)
 	return (0);
 }
 
-void    *ft_calloc(size_t nmemb, size_t size)
-{
-    void    *tab;
-	size_t		i;
-
-	i = 0;
-	if (size != 0 && nmemb > SIZE_MAX / size)
-                return (NULL);
-        tab = malloc(size * nmemb);
-        if (!tab)
-                return (NULL);
-        while (i < (size * nmemb))
-		{
-			((unsigned char *)tab)[i] = 0;
-			i++;
-		}
-        return (tab);
-}

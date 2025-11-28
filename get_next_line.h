@@ -30,7 +30,6 @@ typedef struct	s_list
 }					t_list;
 
 char	*get_next_line(int fd);
-void    *ft_calloc(size_t nmemb, size_t size);
 int		found_newline(t_list *holder);
 t_list	*ft_lstlast(t_list *lst);
 int		len_to_newline(t_list *list);
